@@ -6,3 +6,4 @@ The code for this is heavily inspired by the [Snake tutorial](https://mbuffett.c
 I have tagged some milestones
 
 v0.0.1 - A box appears on screen to represent the player.
+v0.0.2 - The box moves
