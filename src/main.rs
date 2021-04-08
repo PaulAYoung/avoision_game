@@ -20,12 +20,14 @@ fn position_scale(mut q: Query<(&Position, &mut Transform)>){
     }
 }
 
-fn setup(commands: &mut Commands){
-    commands.spawn(Camera2dBundle::default());
+fn setup(mut commands: Commands){
+    commands
+        .spawn()
+        .insert_bundle(OrthographicCameraBundle::new_2d());
 }
 fn main(){
     App::build()
-    .add_resource(WindowDescriptor{
+    .insert_resource(WindowDescriptor{
         title: "Avoision".to_string(),
         width: 500.0,
         height: 500.0,

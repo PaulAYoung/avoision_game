@@ -7,18 +7,19 @@ use crate::materials::Materials;
 pub struct Avoidee;
 
 pub fn spawn_avoidee(
-    commands: &mut Commands,
+    mut commands: Commands,
     materials: Res<Materials>,
 ){
-    commands.spawn(
+    commands.spawn()
+        .insert_bundle(
         SpriteBundle {
             material: materials.avoidee_material.clone(),
             sprite: Sprite::new(Vec2::new(10.0, 10.0)),
             ..Default::default()
         }
     )
-    .with(Position{x:0.0, y: 0.0})
-    .with(Avoidee);
+    .insert(Position{x:0.0, y: 0.0})
+    .insert(Avoidee);
 }
 
 pub fn avoidee_movement(
