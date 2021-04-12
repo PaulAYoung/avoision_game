@@ -1,8 +1,8 @@
-use avoidee::spawn_avoidee;
+use avoider::spawn_avoider;
 use bevy::prelude::*;
 
 mod materials;
-mod avoidee;
+mod avoider;
 mod components;
 mod constants;
 
@@ -31,8 +31,8 @@ fn main(){
     })
     .add_startup_system(materials::setup_materials.system())
     .add_startup_system(setup.system())
-    .add_startup_stage("game_setup", SystemStage::single(spawn_avoidee.system()))
+    .add_startup_stage("game_setup", SystemStage::single(spawn_avoider.system()))
     .add_system(position_scale.system())
-    .add_system(avoidee::avoidee_movement.system())
+    .add_system(avoider::avoider_movement.system())
     .add_plugins(DefaultPlugins).run();
 }

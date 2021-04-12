@@ -22,7 +22,7 @@ pub fn spawn_avoider(
     .insert(Avoider);
 }
 
-pub fn avoidee_movement(
+pub fn avoider_movement(
     keyboard_input: Res<Input<KeyCode>>,
     mut avoidee_positions: Query<&mut Position, With<Avoider>>,
     time: Res<Time>
