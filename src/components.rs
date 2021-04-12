@@ -14,16 +14,18 @@ impl Momentum{
     ///
     /// ```
     /// use avoision_game::components::Momentum;
+    /// use bevy::prelude::*;
     ///
-    /// let mut m = Momentum(Vec2::new(1.0, 0.0);
+    /// let mut m = Momentum(Vec2::new(1.0, 0.0));
     /// m.set_velocity(10.0);
     /// assert_eq!(m.0.x, 10.0);
     /// ```
     ///
     /// ```
     /// use avoision_game::components::Momentum;
+    /// use bevy::prelude::*;
     ///
-    /// let mut m = Momentum(Vec2::new(3.0, 4.0);
+    /// let mut m = Momentum(Vec2::new(3.0, 4.0));
     /// m.set_velocity(50.0);
     /// assert_eq!(m.0.x, 30.0);
     /// assert_eq!(m.0.y, 40.0);
