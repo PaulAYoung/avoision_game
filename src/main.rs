@@ -12,11 +12,7 @@ use constants::{POSITION_SCALE};
 
 fn position_scale(mut q: Query<(&Position, &mut Transform)>){
     for (pos, mut transform) in q.iter_mut() {
-        transform.translation = Vec3::new(
-            pos.x as f32 * POSITION_SCALE,
-            pos.y as f32 * POSITION_SCALE,
-            0.0,
-        );
+        transform.translation = (pos.0*POSITION_SCALE).extend(0.0);
     }
 }
 

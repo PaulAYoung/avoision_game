@@ -18,7 +18,7 @@ pub fn spawn_avoidee(
             ..Default::default()
         }
     )
-    .insert(Position{x:0.0, y: 0.0})
+    .insert(Position(Vec2::new(0.0, 0.0)))
     .insert(Avoidee);
 }
 
@@ -30,13 +30,13 @@ pub fn avoidee_movement(
     let move_dist = AVOIDEE_SPEED * time.delta_seconds();
     for mut pos in avoidee_positions.iter_mut(){
         if keyboard_input.pressed(KeyCode::Up){
-            pos.y += move_dist;
+            pos.0.y += move_dist;
         } else if keyboard_input.pressed(KeyCode::Down){
-            pos.y -= move_dist;
+            pos.0.y -= move_dist;
         }  else if keyboard_input.pressed(KeyCode::Left){
-            pos.x -= move_dist;
+            pos.0.x -= move_dist;
         }  else if keyboard_input.pressed(KeyCode::Right){
-            pos.x += move_dist;
+            pos.0.x += move_dist;
         }
     }
 }
