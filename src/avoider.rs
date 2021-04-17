@@ -13,7 +13,7 @@ pub fn spawn_avoider(
     commands.spawn()
         .insert_bundle(
         SpriteBundle {
-            material: materials.avoidee_material.clone(),
+            material: materials.avoider_material.clone(),
             sprite: Sprite::new(Vec2::new(10.0, 10.0)),
             ..Default::default()
         }
