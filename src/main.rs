@@ -1,13 +1,16 @@
 use avoider::spawn_avoider;
+use avoidee::spawn_avoidee;
 use bevy::prelude::*;
 
 mod materials;
 mod avoider;
+mod avoidee;
 mod components;
 mod constants;
+mod systems;
 
 use components::Position;
-use constants::{POSITION_SCALE};
+use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
 
 
 fn position_scale(mut q: Query<(&Position, &mut Transform)>){
@@ -25,14 +28,20 @@ fn main(){
     App::build()
     .insert_resource(WindowDescriptor{
         title: "Avoision".to_string(),
-        width: 500.0,
-        height: 500.0,
+        width: ARENA_WIDTH as f32 *POSITION_SCALE,
+        height: ARENA_HEIGHT as f32 *POSITION_SCALE,
         ..Default::default()
     })
     .add_startup_system(materials::setup_materials.system())
     .add_startup_system(setup.system())
-    .add_startup_stage("game_setup", SystemStage::single(spawn_avoider.system()))
+    .add_startup_stage("game_setup",
+        SystemStage::parallel()
+        .with_system(spawn_avoider.system())
+        .with_system(avoidee::spawn_avoidee.system())
+    )
     .add_system(position_scale.system())
     .add_system(avoider::avoider_movement.system())
+    .add_system(systems::apply_momentum.system())
+    .add_system(systems::loop_space.system())
     .add_plugins(DefaultPlugins).run();
 }
