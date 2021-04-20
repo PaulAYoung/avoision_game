@@ -1,9 +1,15 @@
 use bevy::{prelude::*, render::renderer::RenderContext};
-use crate::components::{
-    Position
+use crate::{
+    components::{
+    Position,
+    Momentum
+    },
+    constants::{
+        MAX_SPEED,
+        AVOIDER_THRUST
+    },
+    materials::Materials,
 };
-use crate::constants::AVOIDER_SPEED;
-use crate::materials::Materials;
 pub struct Avoider;
 
 pub fn spawn_avoider(
@@ -19,24 +25,36 @@ pub fn spawn_avoider(
         }
     )
     .insert(Position(Vec2::new(0.0, 0.0)))
+    .insert(Momentum(Vec2::new(0.0, 0.0)))
     .insert(Avoider);
 }
 
 pub fn avoider_movement(
     keyboard_input: Res<Input<KeyCode>>,
-    mut avoidee_positions: Query<&mut Position, With<Avoider>>,
+    mut avoider_momentum: Query<&mut Momentum, With<Avoider>>,
     time: Res<Time>
 ){
-    let move_dist = AVOIDER_SPEED * time.delta_seconds();
-    for mut pos in avoidee_positions.iter_mut(){
+    let thrust = AVOIDER_THRUST * time.delta_seconds();
+    for mut m in avoider_momentum.iter_mut(){
+        let mut impulse = Momentum(Vec2::new(0.0, 0.0));
         if keyboard_input.pressed(KeyCode::Up){
-            pos.0.y += move_dist;
-        } else if keyboard_input.pressed(KeyCode::Down){
-            pos.0.y -= move_dist;
-        }  else if keyboard_input.pressed(KeyCode::Left){
-            pos.0.x -= move_dist;
-        }  else if keyboard_input.pressed(KeyCode::Right){
-            pos.0.x += move_dist;
+            impulse.0.y += 1.0;
+        }
+        if keyboard_input.pressed(KeyCode::Down){
+            impulse.0.y -= 1.0;
+        }
+        if keyboard_input.pressed(KeyCode::Left){
+            impulse.0.x -= 1.0;
+        }
+        if keyboard_input.pressed(KeyCode::Right){
+            impulse.0.x += 1.0;
+        }
+        if impulse.0.length() != 0.0 {
+            impulse.set_velocity(thrust);
+            m.0 += impulse.0;
+            if m.0.length() > MAX_SPEED {
+                m.set_velocity(MAX_SPEED);
+            }
         }
     }
 }
