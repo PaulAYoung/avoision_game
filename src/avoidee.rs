@@ -24,6 +24,10 @@ pub fn spawn_avoidee(
         Vec2::new(10.0, 10.0)
         //Vec2::new(random::<f32>() * (ARENA_WIDTH as f32), random::<f32>() * (ARENA_HEIGHT as f32))
     ))
-    .insert(Momentum(Vec2::new(random::<f32>(), random::<f32>())*MAX_SPEED))
+    .insert(Momentum(Vec2::new(
+            random::<f32>()*random::<f32>()*random::<f32>(),
+            random::<f32>()*random::<f32>()*random::<f32>()
+        )*MAX_SPEED)
+    )
     .insert(Avoidee);
 }
