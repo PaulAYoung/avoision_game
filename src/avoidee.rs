@@ -1,33 +1,32 @@
-use rand::prelude::random;
 use bevy::prelude::*;
 
 use crate::components::{Position, Momentum};
+use crate::constants::ITEM_SIZE;
 use crate::materials::Materials;
-use crate::constants::{MAX_SPEED};
 
 struct Avoidee;
+
+pub struct AvoideeSpawnEvent{
+    pub position: Position,
+    pub momentum: Momentum
+}
 
 pub fn spawn_avoidee(
     mut commands: Commands,
     materials: Res<Materials>,
+    mut spawn_events: EventReader<AvoideeSpawnEvent>
 ){
-    println!("In spawn avoidee!");
-    commands.spawn()
-        .insert_bundle(
-        SpriteBundle {
-            material: materials.avoidee_material.clone(),
-            sprite: Sprite::new(Vec2::new(10.0, 10.0)),
-            ..Default::default()
-        }
-    )
-    .insert(Position(
-        Vec2::new(10.0, 10.0)
-        //Vec2::new(random::<f32>() * (ARENA_WIDTH as f32), random::<f32>() * (ARENA_HEIGHT as f32))
-    ))
-    .insert(Momentum(Vec2::new(
-            random::<f32>()*random::<f32>()*random::<f32>(),
-            random::<f32>()*random::<f32>()*random::<f32>()
-        )*MAX_SPEED)
-    )
-    .insert(Avoidee);
+    for e in spawn_events.iter(){
+        commands.spawn()
+            .insert_bundle(
+            SpriteBundle {
+                material: materials.avoidee_material.clone(),
+                sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
+                ..Default::default()
+            }
+        )
+        .insert( e.position)
+        .insert(e.momentum)
+        .insert(Avoidee);
+    }
 }

@@ -1,15 +1,30 @@
 use bevy::prelude::*;
-use crate::components::{Position, Momentum};
-use crate::constants;
+use rand::prelude::random;
 
+use crate::components::{Position, Momentum};
+use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
 use crate::avoider::AvoiderSpawnEvent;
+use crate::avoidee::AvoideeSpawnEvent;
 
 pub fn setup_game(
-    mut avoider_spawn: EventWriter<AvoiderSpawnEvent>
+    mut avoider_spawn: EventWriter<AvoiderSpawnEvent>,
+    mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>
 ){
     avoider_spawn.send(AvoiderSpawnEvent{
         position: Position(Vec2::new(0.0, 0.0)),
         momentum: Momentum(Vec2::new(0.0, 0.0)),
+    });
+
+    avoidee_spawn.send(AvoideeSpawnEvent{
+        position: Position(Vec2::new(
+            random::<f32>()*ARENA_WIDTH as f32,
+            random::<f32>()*ARENA_HEIGHT as f32
+        )),
+        momentum: Momentum(
+            Vec2::new(
+                random::<f32>()*random::<f32>()*random::<f32>(),
+                random::<f32>()*random::<f32>()*random::<f32>())
+        )
     });
 }
 
