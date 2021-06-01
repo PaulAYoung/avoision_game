@@ -1,4 +1,4 @@
-use avoider::spawn_avoider;
+use avoider::{avoider_spawn_event, spawn_avoider};
 use avoidee::spawn_avoidee;
 use bevy::prelude::*;
 
@@ -32,13 +32,15 @@ fn main(){
         height: ARENA_HEIGHT as f32 *POSITION_SCALE,
         ..Default::default()
     })
+    .add_event::<avoider_spawn_event>()
     .add_startup_system(materials::setup_materials.system())
     .add_startup_system(setup.system())
     .add_startup_stage("game_setup",
         SystemStage::parallel()
-        .with_system(spawn_avoider.system())
+        .with_system(systems::setup_game.system())
         .with_system(avoidee::spawn_avoidee.system())
     )
+    .add_system(spawn_avoider.system())
     .add_system(position_scale.system())
     .add_system(avoider::avoider_movement.system())
     .add_system(systems::apply_momentum.system())

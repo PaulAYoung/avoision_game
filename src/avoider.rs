@@ -6,27 +6,35 @@ use crate::{
     },
     constants::{
         MAX_SPEED,
-        AVOIDER_THRUST
+        AVOIDER_THRUST,
+        ITEM_SIZE
     },
     materials::Materials,
 };
 pub struct Avoider;
+pub struct avoider_spawn_event{
+    pub position: Position,
+    pub momentum: Momentum
+}
 
 pub fn spawn_avoider(
     mut commands: Commands,
     materials: Res<Materials>,
+    mut spawn_events: EventReader<avoider_spawn_event>
 ){
-    commands.spawn()
-        .insert_bundle(
-        SpriteBundle {
-            material: materials.avoider_material.clone(),
-            sprite: Sprite::new(Vec2::new(10.0, 10.0)),
-            ..Default::default()
-        }
-    )
-    .insert(Position(Vec2::new(0.0, 0.0)))
-    .insert(Momentum(Vec2::new(0.0, 0.0)))
-    .insert(Avoider);
+    for e in spawn_events.iter(){
+        commands.spawn()
+            .insert_bundle(
+            SpriteBundle {
+                material: materials.avoider_material.clone(),
+                sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
+                ..Default::default()
+            }
+        )
+        .insert(e.position)
+        .insert(e.momentum)
+        .insert(Avoider);
+    }
 }
 
 pub fn avoider_movement(
