@@ -1,6 +1,4 @@
-use std::{default};
 use bevy::prelude::*;
-use bevy::math;
 #[derive(Default, Clone, Copy, PartialEq)]
 pub struct Position( pub Vec2 );
 

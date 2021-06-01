@@ -2,10 +2,12 @@ use bevy::prelude::*;
 use crate::components::{Position, Momentum};
 use crate::constants;
 
-use crate::avoider::avoider_spawn_event;
+use crate::avoider::AvoiderSpawnEvent;
 
-pub fn setup_game(commands: Commands, mut avoider_spawn: EventWriter<avoider_spawn_event>){
-    avoider_spawn.send(avoider_spawn_event{
+pub fn setup_game(
+    mut avoider_spawn: EventWriter<AvoiderSpawnEvent>
+){
+    avoider_spawn.send(AvoiderSpawnEvent{
         position: Position(Vec2::new(0.0, 0.0)),
         momentum: Momentum(Vec2::new(0.0, 0.0)),
     });

@@ -1,4 +1,4 @@
-use bevy::{prelude::*, render::renderer::RenderContext};
+use bevy::{prelude::*};
 use crate::{
     components::{
     Position,
@@ -12,7 +12,7 @@ use crate::{
     materials::Materials,
 };
 pub struct Avoider;
-pub struct avoider_spawn_event{
+pub struct AvoiderSpawnEvent{
     pub position: Position,
     pub momentum: Momentum
 }
@@ -20,7 +20,7 @@ pub struct avoider_spawn_event{
 pub fn spawn_avoider(
     mut commands: Commands,
     materials: Res<Materials>,
-    mut spawn_events: EventReader<avoider_spawn_event>
+    mut spawn_events: EventReader<AvoiderSpawnEvent>
 ){
     for e in spawn_events.iter(){
         commands.spawn()

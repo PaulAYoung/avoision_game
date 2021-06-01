@@ -1,5 +1,4 @@
-use avoider::{avoider_spawn_event, spawn_avoider};
-use avoidee::spawn_avoidee;
+use avoider::{AvoiderSpawnEvent, spawn_avoider};
 use bevy::prelude::*;
 
 mod materials;
@@ -32,7 +31,7 @@ fn main(){
         height: ARENA_HEIGHT as f32 *POSITION_SCALE,
         ..Default::default()
     })
-    .add_event::<avoider_spawn_event>()
+    .add_event::<AvoiderSpawnEvent>()
     .add_startup_system(materials::setup_materials.system())
     .add_startup_system(setup.system())
     .add_startup_stage("game_setup",

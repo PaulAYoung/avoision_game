@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 use crate::components::{Position, Momentum};
 use crate::materials::Materials;
-use crate::constants::{MAX_SPEED, ARENA_HEIGHT, ARENA_WIDTH};
+use crate::constants::{MAX_SPEED};
 
 struct Avoidee;
 
