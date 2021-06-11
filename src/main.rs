@@ -1,5 +1,5 @@
 use avoidee::{AvoideeSpawnEvent, spawn_avoidee};
-use avoider::{AvoiderSpawnEvent, spawn_avoider};
+use avoider::{AvoiderSpawnEvent, spawn_avoider_event_reader};
 use bevy::prelude::*;
 
 mod materials;
@@ -40,7 +40,7 @@ fn main(){
         SystemStage::parallel()
         .with_system(systems::setup_game.system())
     )
-    .add_system(spawn_avoider.system())
+    .add_system(spawn_avoider_event_reader.system())
     .add_system(spawn_avoidee.system())
     .add_system(position_scale.system())
     .add_system(avoider::avoider_movement.system())

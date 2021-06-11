@@ -1,40 +1,45 @@
 use bevy::{prelude::*};
-use crate::{
-    components::{
+use crate::{components::{
     Position,
     Momentum
-    },
-    constants::{
+    }, constants::{
         MAX_SPEED,
         AVOIDER_THRUST,
         ITEM_SIZE
-    },
-    materials::Materials,
-};
+    }, materials::{Materials}};
 pub struct Avoider;
 pub struct AvoiderSpawnEvent{
     pub position: Position,
     pub momentum: Momentum
 }
 
-pub fn spawn_avoider(
+pub fn spawn_avoider_event_reader(
     mut commands: Commands,
     materials: Res<Materials>,
     mut spawn_events: EventReader<AvoiderSpawnEvent>
 ){
     for e in spawn_events.iter(){
-        commands.spawn()
-            .insert_bundle(
-            SpriteBundle {
-                material: materials.avoider_material.clone(),
-                sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
-                ..Default::default()
-            }
-        )
-        .insert(e.position)
-        .insert(e.momentum)
-        .insert(Avoider);
+        spawn_avoider2(&mut commands, &materials, e.position, e.momentum);
     }
+}
+
+pub fn spawn_avoider(
+    commands: &mut Commands,
+    materials: &Res<Materials>,
+    position: Position,
+    momentum: Momentum
+){
+    commands.spawn()
+        .insert_bundle(
+        SpriteBundle {
+            material: (materials).avoider_material.clone(),
+            sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
+            ..Default::default()
+        }
+    )
+    .insert(position)
+    .insert(momentum)
+    .insert(Avoider);
 }
 
 pub fn avoider_movement(
