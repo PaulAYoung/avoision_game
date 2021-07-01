@@ -1,4 +1,4 @@
-use avoidee::{AvoideeSpawnEvent, spawn_avoidee};
+use avoidee::{AvoideeSpawnEvent, spawn_avoidee_event_reader};
 use avoider::{AvoiderSpawnEvent, spawn_avoider_event_reader};
 use bevy::prelude::*;
 
@@ -41,7 +41,7 @@ fn main(){
         .with_system(systems::setup_game.system())
     )
     .add_system(spawn_avoider_event_reader.system())
-    .add_system(spawn_avoidee.system())
+    .add_system(spawn_avoidee_event_reader.system())
     .add_system(position_scale.system())
     .add_system(avoider::avoider_movement.system())
     .add_system(systems::apply_momentum.system())
