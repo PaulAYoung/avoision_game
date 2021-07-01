@@ -19,7 +19,7 @@ pub fn spawn_avoider_event_reader(
     mut spawn_events: EventReader<AvoiderSpawnEvent>
 ){
     for e in spawn_events.iter(){
-        spawn_avoider2(&mut commands, &materials, e.position, e.momentum);
+        spawn_avoider(&mut commands, &materials, e.position, e.momentum);
     }
 }
 
