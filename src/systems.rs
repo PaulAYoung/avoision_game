@@ -6,6 +6,8 @@ use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
 use crate::avoider::AvoiderSpawnEvent;
 use crate::avoidee::AvoideeSpawnEvent;
 
+use crate::GameState;
+
 pub fn setup_game(
     mut avoider_spawn: EventWriter<AvoiderSpawnEvent>,
     mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>
@@ -48,4 +50,23 @@ pub fn loop_space(query: Query<&mut Position>){
             pos.0.x = (constants::ARENA_WIDTH as f32)/2.0;
         }
     })
+}
+
+pub fn pause_unpause(
+    mut game_state: ResMut<State<GameState>>,
+    keyboard_input: Res<Input<KeyCode>>,
+){
+    if keyboard_input.just_pressed(KeyCode::P){
+        match game_state.current(){
+            GameState::InGame => {
+                game_state.push(GameState::Paused).unwrap();
+            }
+            GameState::Menu => {
+                game_state.set(GameState::Paused).unwrap();
+            }
+            GameState::Paused => {
+                game_state.pop().unwrap();
+            }
+        }
+    }
 }

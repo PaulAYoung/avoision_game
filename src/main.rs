@@ -13,7 +13,7 @@ use components::Position;
 use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
 
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
-enum GameState {
+pub enum GameState {
     Menu,
     InGame,
     Paused
@@ -56,6 +56,10 @@ fn main(){
         .with_system(systems::apply_momentum.system())
         .with_system(systems::loop_space.system())
     )
+    .add_system_set(
+        SystemSet::on_update(GameState::Paused)
+    )
+    .add_system(systems::pause_unpause.system())
     .add_plugins(DefaultPlugins)
     .run();
 }
