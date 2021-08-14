@@ -5,11 +5,12 @@ use bevy::prelude::*;
 mod materials;
 mod avoider;
 mod avoidee;
-mod components;
 mod constants;
 mod systems;
 
-use components::Position;
+mod gep;
+
+use gep::{Position};
 use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
 
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]

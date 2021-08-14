@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use rand::prelude::random;
 
-use crate::components::{Position, Momentum};
+use crate::gep::{Position, Momentum};
 use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
 use crate::avoider::AvoiderSpawnEvent;
 use crate::avoidee::AvoideeSpawnEvent;

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::components::{Position, Momentum};
+use crate::gep::{Position, Momentum};
 use crate::constants::ITEM_SIZE;
 use crate::materials::Materials;
 
