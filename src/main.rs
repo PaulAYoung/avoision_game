@@ -7,18 +7,13 @@ mod avoider;
 mod avoidee;
 mod constants;
 mod systems;
-
+mod game_structs;
 mod gep;
 
 use gep::{Position};
 use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
+use game_structs::GameState;
 
-#[derive(Debug, Clone, Eq, PartialEq, Hash)]
-pub enum GameState {
-    Menu,
-    InGame,
-    Paused
-}
 
 fn position_scale(mut q: Query<(&Position, &mut Transform)>){
     for (pos, mut transform) in q.iter_mut() {
@@ -54,8 +49,8 @@ fn main(){
         .with_system(spawn_avoidee_event_reader.system())
         .with_system(position_scale.system())
         .with_system(avoider::avoider_movement.system())
-        .with_system(systems::apply_momentum.system())
         .with_system(systems::loop_space.system())
+        .with_system(gep::systems::apply_momentum.system())
     )
     .add_system_set(
         SystemSet::on_update(GameState::Paused)

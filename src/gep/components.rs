@@ -11,7 +11,7 @@ impl Momentum{
     /// # examples
     ///
     /// ```
-    /// use avoision_game::components::Momentum;
+    /// use avoision_game::gep::components::Momentum;
     /// use bevy::prelude::*;
     ///
     /// let mut m = Momentum(Vec2::new(1.0, 0.0));
@@ -20,7 +20,7 @@ impl Momentum{
     /// ```
     ///
     /// ```
-    /// use avoision_game::components::Momentum;
+    /// use avoision_game::gep::components::Momentum;
     /// use bevy::prelude::*;
     ///
     /// let mut m = Momentum(Vec2::new(3.0, 4.0));

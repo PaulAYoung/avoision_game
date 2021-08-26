@@ -6,7 +6,7 @@ use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
 use crate::avoider::AvoiderSpawnEvent;
 use crate::avoidee::AvoideeSpawnEvent;
 
-use crate::GameState;
+use crate::game_structs::GameState;
 
 pub fn setup_game(
     mut avoider_spawn: EventWriter<AvoiderSpawnEvent>,
@@ -28,12 +28,6 @@ pub fn setup_game(
                 random::<f32>()*random::<f32>()*random::<f32>())
         )
     });
-}
-
-pub fn apply_momentum(query: Query<(&mut Position, &Momentum)>){
-    query.for_each_mut(|(mut pos, mom)|{
-        pos.0 += mom.0;
-    })
 }
 
 pub fn loop_space(query: Query<&mut Position>){
