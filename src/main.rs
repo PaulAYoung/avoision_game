@@ -50,12 +50,12 @@ fn main(){
         .with_system(position_scale.system())
         .with_system(avoider::avoider_movement.system())
         .with_system(systems::loop_space.system())
-        .with_system(gep::systems::apply_momentum.system())
     )
     .add_system_set(
         SystemSet::on_update(GameState::Paused)
     )
     .add_system(systems::pause_unpause.system())
     .add_plugins(DefaultPlugins)
+    .add_plugin(gep::plugin::GEPPlugin)
     .run();
 }
