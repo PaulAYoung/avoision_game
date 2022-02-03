@@ -30,7 +30,7 @@ pub fn setup_game(
     });
 }
 
-pub fn loop_space(query: Query<&mut Position>){
+pub fn loop_space(mut query: Query<&mut Position>){
     query.for_each_mut(|mut pos|{
         if pos.0.y > (constants::ARENA_HEIGHT as f32)/2.0{
             pos.0.y = (constants::ARENA_HEIGHT as f32)/-2.0;

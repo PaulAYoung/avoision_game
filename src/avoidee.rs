@@ -4,6 +4,7 @@ use crate::gep::{Position, Momentum};
 use crate::constants::ITEM_SIZE;
 use crate::materials::Materials;
 
+#[derive(Component)]
 struct Avoidee;
 
 #[derive(Bundle)]
@@ -43,8 +44,11 @@ pub fn spawn_avoidee(
             momentum: momentum,
             avoidee_marker: Avoidee,
             sprite: SpriteBundle {
-                material: (materials).avoidee_material.clone(),
-                sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
+                sprite: Sprite{
+                    color: Color::rgb(0.0, 0.7, 0.7),
+                    custom_size: Some(Vec2::new(10.0, 10.0)),
+                    ..Default::default()
+                },
                 ..Default::default()
             }
         }

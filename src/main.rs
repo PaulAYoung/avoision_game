@@ -27,7 +27,7 @@ fn setup(mut commands: Commands){
         .insert_bundle(OrthographicCameraBundle::new_2d());
 }
 fn main(){
-    App::build()
+    App::new()
     .insert_resource(WindowDescriptor{
         title: "Avoision".to_string(),
         width: ARENA_WIDTH as f32 *POSITION_SCALE,

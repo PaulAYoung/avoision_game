@@ -7,6 +7,8 @@ use crate::{gep::{
         AVOIDER_THRUST,
         ITEM_SIZE
     }, materials::{Materials}};
+
+#[derive(Component)]
 pub struct Avoider;
 pub struct AvoiderSpawnEvent{
     pub position: Position,
@@ -32,9 +34,12 @@ pub fn spawn_avoider(
     commands.spawn()
         .insert_bundle(
         SpriteBundle {
-            material: (materials).avoider_material.clone(),
-            sprite: Sprite::new(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
-            ..Default::default()
+                sprite: Sprite{
+                    color: Color::rgb(0.7, 0.0, 0.0),
+                    custom_size: Some(Vec2::new(10.0, 10.0)),
+                    ..Default::default()
+                },
+                ..Default::default()
         }
     )
     .insert(position)

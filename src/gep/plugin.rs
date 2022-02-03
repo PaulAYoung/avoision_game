@@ -5,7 +5,7 @@ pub struct GEPPlugin;
 
 
 impl Plugin for GEPPlugin{
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         app
         .init_resource::<ColliderList>()
         .add_system_set(

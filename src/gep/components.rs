@@ -1,8 +1,8 @@
 use bevy::prelude::*;
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, Component)]
 pub struct Position( pub Vec2 );
 
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, Component)]
 pub struct Momentum( pub Vec2 );
 
 impl Momentum{
