@@ -46,7 +46,7 @@ pub fn spawn_avoidee(
             sprite: SpriteBundle {
                 sprite: Sprite{
                     color: Color::rgb(0.0, 0.7, 0.7),
-                    custom_size: Some(Vec2::new(10.0, 10.0)),
+                    custom_size: Some(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
                     ..Default::default()
                 },
                 ..Default::default()
