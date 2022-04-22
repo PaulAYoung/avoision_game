@@ -1,7 +1,8 @@
 use bevy::{prelude::*};
 use crate::{gep::{
     Position,
-    Momentum
+    Momentum,
+    Collider
     }, constants::{
         MAX_SPEED,
         AVOIDER_THRUST,
@@ -44,6 +45,7 @@ pub fn spawn_avoider(
     )
     .insert(position)
     .insert(momentum)
+    .insert(Collider::Circle{radius: ITEM_SIZE/2.0})
     .insert(Avoider);
 }
 

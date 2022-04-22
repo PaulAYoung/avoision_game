@@ -5,6 +5,24 @@ pub struct Position( pub Vec2 );
 #[derive(Default, Clone, Copy, PartialEq, Component)]
 pub struct Momentum( pub Vec2 );
 
+/// Enum for different collision bodies
+#[derive(Clone, Copy, PartialEq, Component)]
+pub enum Collider {
+    Circle{radius: f32},
+}
+
+impl Collider {
+    pub fn collides(c1: &Collider, c2: &Collider, p1:&Position, p2: &Position)->bool{
+        match *c1 {
+            Collider::Circle{radius: r} => {
+                match *c2{
+                    Collider::Circle{radius: r2} => (p1.0 - p2.0).length() <= r+r2,
+                }
+            },
+        }
+    }
+}
+
 impl Momentum{
     /// Sets the velocity while keeping the direction.
     ///
@@ -34,3 +52,13 @@ impl Momentum{
         self.0 *= change;
     }
 }
+
+pub struct ColliderLoc{
+    pub collider: Collider,
+    pub position: Position,
+    pub entity: Entity,
+}
+
+
+#[derive(Default)]
+pub struct ColliderList(std::collections::HashSet<Entity>);

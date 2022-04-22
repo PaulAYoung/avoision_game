@@ -11,7 +11,8 @@ impl Plugin for GEPPlugin{
         .add_system_set(
             SystemSet::on_update(GameState::InGame)
             .label("GEP")
-            .with_system(systems::apply_momentum.system())
+            .with_system(systems::apply_momentum)
+            .with_system(systems::resolve_collisions)
         );
     }
 }

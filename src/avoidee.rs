@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::gep::{Position, Momentum};
+use crate::gep::{Position, Momentum, Collider};
 use crate::constants::ITEM_SIZE;
 use crate::materials::Materials;
 
@@ -12,6 +12,7 @@ struct AvoideeBundle{
     position: Position,
     momentum: Momentum,
     avoidee_marker: Avoidee,
+    collider: Collider,
 
     #[bundle]
     sprite: SpriteBundle
@@ -42,6 +43,7 @@ pub fn spawn_avoidee(
         AvoideeBundle {
             position: position,
             momentum: momentum,
+            collider: Collider::Circle{radius: ITEM_SIZE/2.0},
             avoidee_marker: Avoidee,
             sprite: SpriteBundle {
                 sprite: Sprite{
