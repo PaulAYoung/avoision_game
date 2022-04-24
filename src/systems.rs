@@ -51,6 +51,16 @@ pub fn pause_unpause(
     keyboard_input: Res<Input<KeyCode>>,
 ){
     if keyboard_input.just_pressed(KeyCode::P){
-        game_state.set(GameState::InGame);
+        match game_state.current(){
+            GameState::InGame => {
+                game_state.push(GameState::Paused).unwrap();
+            }
+            GameState::Menu => {
+                game_state.set(GameState::Paused).unwrap();
+            }
+            GameState::Paused => {
+                game_state.pop().unwrap();
+            }
+        }
     }
 }
