@@ -1,6 +1,6 @@
 use avoidee::{AvoideeSpawnEvent, spawn_avoidee_event_reader};
 use avoider::{AvoiderSpawnEvent, spawn_avoider_event_reader};
-use bevy::prelude::*;
+use bevy::{prelude::*, core::Stopwatch};
 
 mod materials;
 mod avoider;
@@ -13,7 +13,8 @@ mod menu_stuff;
 
 use gep::{Position};
 use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
-use game_structs::GameState;
+use game_structs::{GameState, Score};
+use menu_stuff::{init_score, update_score};
 
 
 fn position_scale(mut q: Query<(&Position, &mut Transform)>){
@@ -39,9 +40,11 @@ fn main(){
     .add_event::<AvoideeSpawnEvent>()
     .add_startup_system(materials::setup_materials)
     .add_startup_system(setup)
+    .insert_resource(Score(Stopwatch::new()))
     .add_system_set(
         SystemSet::on_enter(GameState::InGame)
         .with_system(systems::setup_game)
+        .with_system(init_score)
     )
     .add_system_set(
         SystemSet::on_update(GameState::InGame)
@@ -50,6 +53,7 @@ fn main(){
         .with_system(position_scale)
         .with_system(avoider::avoider_movement)
         .with_system(systems::loop_space)
+        .with_system(update_score)
     )
     .add_system_set(
         SystemSet::on_update(GameState::Paused)
