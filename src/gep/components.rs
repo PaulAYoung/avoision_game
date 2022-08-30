@@ -53,12 +53,4 @@ impl Momentum{
     }
 }
 
-pub struct ColliderLoc{
-    pub collider: Collider,
-    pub position: Position,
-    pub entity: Entity,
-}
-
-
-#[derive(Default)]
-pub struct ColliderList(std::collections::HashSet<Entity>);
+pub struct Collision(pub Entity, pub Entity);
