@@ -54,6 +54,7 @@ fn main(){
         .with_system(avoider::avoider_movement)
         .with_system(systems::loop_space)
         .with_system(update_score)
+        .with_system(systems::detect_player_collision)
     )
     .add_system_set(
         SystemSet::on_update(GameState::Paused)

@@ -1,4 +1,4 @@
-use bevy::{prelude::{Deref, DerefMut}};
+use bevy::{prelude::{Deref, DerefMut, Timer}};
 use bevy::core::Stopwatch;
 
 
@@ -6,7 +6,8 @@ use bevy::core::Stopwatch;
 pub enum GameState {
     Menu,
     InGame,
-    Paused
+    Paused,
+    GameOver
 }
 
 #[derive(Debug, Clone, Deref, DerefMut)]

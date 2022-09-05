@@ -61,6 +61,23 @@ pub fn pause_unpause(
             GameState::Paused => {
                 game_state.pop().unwrap();
             }
+            _ => {
+            }
+        }
+    }
+}
+
+pub fn detect_player_collision(
+    query: Query<Entity, With<Avoider>>,
+    mut collisions: EventReader<Collision>,
+    mut game_state: ResMut<State<GameState>>,
+){
+    if !query.is_empty(){
+        let player_entity = query.single();
+        for c in collisions.iter(){
+            if c.0 == player_entity || c.1 == player_entity{
+                game_state.push(GameState::GameOver).unwrap()
+            }
         }
     }
 }

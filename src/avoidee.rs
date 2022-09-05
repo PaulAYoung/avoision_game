@@ -5,7 +5,7 @@ use crate::constants::ITEM_SIZE;
 use crate::materials::Materials;
 
 #[derive(Component)]
-struct Avoidee;
+pub struct Avoidee;
 
 #[derive(Bundle)]
 struct AvoideeBundle{
