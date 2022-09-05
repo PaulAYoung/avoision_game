@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use super::{Position, Momentum, Collider, components::Collision};
+use crate::{avoider::Avoider};
 
 pub fn apply_momentum(
     mut query: Query<(&mut Position, &Momentum)>

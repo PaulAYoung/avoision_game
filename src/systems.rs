@@ -1,10 +1,14 @@
+use std::thread::spawn;
+
+use bevy::core::Stopwatch;
 use bevy::prelude::*;
 use rand::prelude::random;
 
+use crate::gep::components::Collision;
 use crate::gep::{Position, Momentum};
 use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
-use crate::avoider::AvoiderSpawnEvent;
-use crate::avoidee::AvoideeSpawnEvent;
+use crate::avoider::{AvoiderSpawnEvent, Avoider};
+use crate::avoidee::{AvoideeSpawnEvent};
 
 use crate::game_structs::GameState;
 
@@ -79,5 +83,29 @@ pub fn detect_player_collision(
                 game_state.push(GameState::GameOver).unwrap()
             }
         }
+    }
+}
+
+pub fn avoidee_spawner(
+    time:Res<Time>,
+    mut spawn_timer: Local<Stopwatch>,
+    mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>
+){
+    spawn_timer.tick(time.delta());
+    if spawn_timer.elapsed_secs() > 3.0 {
+        println!("Spawn!");
+        spawn_timer.reset();
+        avoidee_spawn.send(AvoideeSpawnEvent{
+            position: Position(Vec2::new(
+                random::<f32>()*ARENA_WIDTH as f32,
+                random::<f32>()*ARENA_HEIGHT as f32
+            )),
+            momentum: Momentum(
+                Vec2::new(
+                    random::<f32>()*random::<f32>()*random::<f32>()*2.0,
+                    random::<f32>()*random::<f32>()*random::<f32>()*2.0)
+            )
+        });
+
     }
 }
