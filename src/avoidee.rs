@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 use crate::gep::{Position, Momentum, Collider};
-use crate::constants::ITEM_SIZE;
+use crate::constants::{ITEM_SIZE, POSITION_SCALE};
 use crate::materials::Materials;
 
 #[derive(Component)]
@@ -32,6 +32,7 @@ pub fn spawn_avoidee_event_reader(
     }
 }
 
+
 pub fn spawn_avoidee(
     commands: &mut Commands,
     materials: &Res<Materials>,
@@ -49,6 +50,10 @@ pub fn spawn_avoidee(
                 sprite: Sprite{
                     color: Color::rgb(0.0, 0.7, 0.7),
                     custom_size: Some(Vec2::new(ITEM_SIZE, ITEM_SIZE)),
+                    ..Default::default()
+                },
+                transform: Transform{
+                    translation: (position.0*POSITION_SCALE).extend(0.0),
                     ..Default::default()
                 },
                 ..Default::default()
