@@ -10,6 +10,7 @@ mod systems;
 mod game_structs;
 mod gep;
 mod menu_stuff;
+mod game_over;
 
 use gep::{Position};
 use constants::{POSITION_SCALE, ARENA_HEIGHT, ARENA_WIDTH};
@@ -59,6 +60,10 @@ fn main(){
     )
     .add_system_set(
         SystemSet::on_update(GameState::Paused)
+    )
+    .add_system_set(
+        SystemSet::on_enter(GameState::GameOver)
+        .with_system(game_over::enter_game_over)
     )
     .add_system(systems::pause_unpause)
     .add_plugins(DefaultPlugins)

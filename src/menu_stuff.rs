@@ -9,7 +9,7 @@ pub struct MenuText;
 pub struct ScoreText;
 pub struct MenuPlugin;
 
-fn get_text_style()->Style {
+pub fn get_text_style()->Style {
     Style{
         align_self: AlignSelf::FlexEnd,
         position_type: PositionType::Absolute,
