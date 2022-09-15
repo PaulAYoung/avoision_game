@@ -1,18 +1,20 @@
 use bevy::prelude::*;
 
+use crate::game_structs::GameEntity;
 use crate::gep::{Position, Momentum, Collider};
 use crate::constants::{ITEM_SIZE, POSITION_SCALE};
 use crate::materials::Materials;
 
-#[derive(Component)]
+#[derive(Component, Default)]
 pub struct Avoidee;
 
-#[derive(Bundle)]
+#[derive(Bundle, Default)]
 struct AvoideeBundle{
     position: Position,
     momentum: Momentum,
     avoidee_marker: Avoidee,
     collider: Collider,
+    game_entity: GameEntity,
 
     #[bundle]
     sprite: SpriteBundle
@@ -57,7 +59,8 @@ pub fn spawn_avoidee(
                     ..Default::default()
                 },
                 ..Default::default()
-            }
+            },
+            ..Default::default()
         }
     );
 }

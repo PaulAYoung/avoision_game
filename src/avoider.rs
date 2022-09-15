@@ -7,7 +7,7 @@ use crate::{gep::{
         MAX_SPEED,
         AVOIDER_THRUST,
         ITEM_SIZE
-    }, materials::{Materials}};
+    }, materials::{Materials}, game_structs::GameEntity};
 
 #[derive(Component)]
 pub struct Avoider;
@@ -46,7 +46,8 @@ pub fn spawn_avoider(
     .insert(position)
     .insert(momentum)
     .insert(Collider::Circle{radius: ITEM_SIZE/2.0})
-    .insert(Avoider);
+    .insert(Avoider)
+    .insert(GameEntity);
 }
 
 pub fn avoider_movement(

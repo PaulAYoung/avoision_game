@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use crate::game_structs::Score;
+use crate::GameState;
 use crate::menu_stuff::{MenuText, get_text_style};
 
 
@@ -14,7 +15,7 @@ pub fn enter_game_over(
             // Use the `Text::with_section` constructor
             text: Text::with_section(
                 // Accepts a `String` or any type that converts into a `String`, such as `&str`
-                format!("Game Over\nScore:{}", score.0.elapsed_secs()),
+                format!("Game Over\nScore:{}\nPress r to restart", score.0.elapsed_secs()),
                 TextStyle {
                     font: asset_server.load("fonts\\FiraSans-Bold.ttf"),
                     font_size: 50.0,
@@ -30,4 +31,20 @@ pub fn enter_game_over(
             ..default()
         })
         .insert(MenuText);
+}
+
+
+pub fn restart(
+    mut game_state: ResMut<State<GameState>>,
+    keyboard_input: Res<Input<KeyCode>>,
+){
+    if keyboard_input.just_pressed(KeyCode::R){
+        match game_state.current(){
+            GameState::GameOver => {
+                game_state.set(GameState::Menu).unwrap();
+            }
+            _ => {
+            }
+        }
+    }
 }

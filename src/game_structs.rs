@@ -1,4 +1,4 @@
-use bevy::{prelude::{Deref, DerefMut, Timer}};
+use bevy::{prelude::{Deref, DerefMut, Timer, Component}};
 use bevy::core::Stopwatch;
 
 
@@ -12,3 +12,5 @@ pub enum GameState {
 
 #[derive(Debug, Clone, Deref, DerefMut)]
 pub struct Score (pub Stopwatch);
+#[derive(Default, Component)]
+pub struct GameEntity;

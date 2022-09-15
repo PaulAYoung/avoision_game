@@ -48,6 +48,10 @@ fn main(){
         .with_system(init_score)
     )
     .add_system_set(
+        SystemSet::on_exit(GameState::InGame)
+        .with_system(systems::tear_down)
+    )
+    .add_system_set(
         SystemSet::on_update(GameState::InGame)
         .with_system(spawn_avoider_event_reader)
         .with_system(spawn_avoidee_event_reader)
@@ -64,6 +68,14 @@ fn main(){
     .add_system_set(
         SystemSet::on_enter(GameState::GameOver)
         .with_system(game_over::enter_game_over)
+    )
+    .add_system_set(
+        SystemSet::on_exit(GameState::GameOver)
+        .with_system(menu_stuff::exit_menu)
+        .with_system(systems::tear_down)
+    )
+    .add_system_set(SystemSet::on_update(GameState::GameOver)
+        .with_system(game_over::restart)
     )
     .add_system(systems::pause_unpause)
     .add_plugins(DefaultPlugins)

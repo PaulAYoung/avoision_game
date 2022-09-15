@@ -23,6 +23,12 @@ impl Collider {
     }
 }
 
+impl Default for Collider{
+    fn default() -> Self {
+        Collider::Circle { radius: 1.0 }
+    }
+}
+
 impl Momentum{
     /// Sets the velocity while keeping the direction.
     ///

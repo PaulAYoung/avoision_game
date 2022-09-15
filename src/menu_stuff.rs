@@ -1,6 +1,6 @@
 
 use bevy::{prelude::*};
-use crate::game_structs::{GameState, Score};
+use crate::game_structs::{GameState, Score, GameEntity};
 
 #[derive(Component)]
 pub struct MenuText;
@@ -58,7 +58,8 @@ pub fn init_score(mut commands: Commands, asset_server: Res<AssetServer>, mut sc
             ),
             ..default()
         })
-        .insert(ScoreText);
+        .insert(ScoreText)
+        .insert(GameEntity);
 }
 
 pub fn update_score(

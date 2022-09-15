@@ -2,6 +2,7 @@ use std::thread::spawn;
 
 use bevy::core::Stopwatch;
 use bevy::prelude::*;
+use bevy::tasks::Scope;
 use rand::prelude::random;
 
 use crate::gep::components::Collision;
@@ -10,11 +11,21 @@ use crate::constants::{self, ARENA_HEIGHT, ARENA_WIDTH};
 use crate::avoider::{AvoiderSpawnEvent, Avoider};
 use crate::avoidee::{AvoideeSpawnEvent};
 
-use crate::game_structs::GameState;
+use crate::game_structs::{GameState, GameEntity, Score};
+
+pub fn tear_down(
+    mut cmd: Commands,
+    query: Query<Entity, With<GameEntity>>,
+){
+    for e in query.iter(){
+        cmd.entity(e).despawn();
+    }
+}
 
 pub fn setup_game(
     mut avoider_spawn: EventWriter<AvoiderSpawnEvent>,
-    mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>
+    mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>,
+    
 ){
     avoider_spawn.send(AvoiderSpawnEvent{
         position: Position(Vec2::new(0.0, 0.0)),
@@ -88,13 +99,17 @@ pub fn detect_player_collision(
 
 pub fn avoidee_spawner(
     time:Res<Time>,
-    mut spawn_timer: Local<Stopwatch>,
+    score: Res<Score>,
     mut avoidee_spawn: EventWriter<AvoideeSpawnEvent>
 ){
-    spawn_timer.tick(time.delta());
-    if spawn_timer.elapsed_secs() > 3.0 {
+    let elapsed = time.delta_seconds();
+    let cur_time = f32::floor(score.0.elapsed_secs());
+    if (
+        cur_time >= 3.0
+        && f32::floor(score.0.elapsed_secs()-elapsed) < cur_time
+        && cur_time % 3.0 == 0.0
+    ) {
         println!("Spawn!");
-        spawn_timer.reset();
         avoidee_spawn.send(AvoideeSpawnEvent{
             position: Position(Vec2::new(
                 random::<f32>()*ARENA_WIDTH as f32,
